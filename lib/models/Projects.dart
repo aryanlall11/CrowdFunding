@@ -72,8 +72,7 @@ class _Project_TileState extends State<Project_Tile> {
       status = "Successful";
     else if (widget.status == 3)
       status = "Expired";
-    else
-      status = "Fundraising";
+    else if (widget.status == 1) status = "Fundraising";
 
     return Padding(
       padding: EdgeInsets.only(top: 6.0, bottom: 6),

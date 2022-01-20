@@ -45,7 +45,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             isAdmin: false,
             title: title,
             description: description,
-            timeLeft: raiseUntil - nowTime,
+            timeLeft: max(0, raiseUntil - nowTime),
             goal: goal_eth,
             currBal: curr_eth,
             status: state,

@@ -112,34 +112,36 @@ class _ApproveState extends State<Approve> {
                     style: Theme.of(context).textTheme.subtitle1,
                   ),
                   SizedBox(height: 30),
-                  Consumer<MetaMaskProvider>(
-                      builder: (context, provider, child) {
-                    return Center(
-                      child: isCreate
-                          ? CircularProgressIndicator()
-                          : ElevatedButton(
-                              onPressed: () async {
-                                setState(() {
-                                  isCreate = true;
-                                });
+                  widget.status.length == 0
+                      ? Consumer<MetaMaskProvider>(
+                          builder: (context, provider, child) {
+                          return Center(
+                            child: isCreate
+                                ? CircularProgressIndicator()
+                                : ElevatedButton(
+                                    onPressed: () async {
+                                      setState(() {
+                                        isCreate = true;
+                                      });
 
-                                await context
-                                    .read<MetaMaskProvider>()
-                                    .approve(widget.address);
+                                      await context
+                                          .read<MetaMaskProvider>()
+                                          .approve(widget.address);
 
-                                setState(() {
-                                  isCreate = false;
-                                  done = true;
-                                });
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 8.0, bottom: 8.0),
-                                child: const Text('Approve'),
-                              ),
-                            ),
-                    );
-                  })
+                                      setState(() {
+                                        isCreate = false;
+                                        done = true;
+                                      });
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 8.0, bottom: 8.0),
+                                      child: const Text('Approve'),
+                                    ),
+                                  ),
+                          );
+                        })
+                      : SizedBox.shrink()
                 ],
               ),
             ),

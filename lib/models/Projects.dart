@@ -68,9 +68,9 @@ class _Project_TileState extends State<Project_Tile> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     String status = "";
-    if (widget.status == 2)
+    if (widget.status == 3)
       status = "Successful";
-    else if (widget.status == 3)
+    else if (widget.status == 2)
       status = "Expired";
     else if (widget.status == 1) status = "Fundraising";
 

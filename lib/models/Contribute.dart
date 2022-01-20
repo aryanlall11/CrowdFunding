@@ -149,105 +149,102 @@ class _ContributeState extends State<Contribute> {
                     ),
                   ),
                   SizedBox(height: 30),
-                  Form(
-                      key: _formKey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Row(
-                            children: [
-                              Container(
-                                  alignment: Alignment.centerRight,
-                                  width: size.width * 0.1,
-                                  child: Center(
-                                    child: Text(
-                                      "Enter amount to contribute : ",
-                                      style:
-                                          Theme.of(context).textTheme.subtitle1,
+                  widget.status == "Fundraising"
+                      ? Form(
+                          key: _formKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Row(
+                                children: [
+                                  Container(
+                                      alignment: Alignment.centerRight,
+                                      width: size.width * 0.1,
+                                      child: Center(
+                                        child: Text(
+                                          "Enter amount to contribute : ",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle1,
+                                        ),
+                                      )),
+                                  SizedBox(width: 10),
+                                  Expanded(
+                                    child: TextFormField(
+                                      controller: amtCont,
+                                      keyboardType: TextInputType.number,
+                                      decoration: const InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          hintText:
+                                              'Enter amount to contribute (Eth)',
+                                          labelText: 'Amount (Eth)'),
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter a valid amount!';
+                                        }
+                                        return null;
+                                      },
                                     ),
-                                  )),
-                              SizedBox(width: 10),
-                              Expanded(
-                                child: TextFormField(
-                                  controller: amtCont,
-                                  keyboardType: TextInputType.number,
-                                  decoration: const InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      hintText:
-                                          'Enter amount to contribute (Eth)',
-                                      labelText: 'Amount (Eth)'),
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Please enter a valid amount!';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                              ),
-                              SizedBox(width: 30),
-                              widget.status == "Fundraising"
-                                  ? Consumer<MetaMaskProvider>(
+                                  ),
+                                  SizedBox(width: 30),
+                                  Consumer<MetaMaskProvider>(
                                       builder: (context, provider, child) {
-                                      return Center(
-                                        child: isCreate
-                                            ? CircularProgressIndicator()
-                                            : ElevatedButton(
-                                                onPressed: () async {
-                                                  if (_formKey.currentState!
-                                                      .validate()) {
-                                                    await provider.connect();
-                                                    String msgaddr = provider
-                                                        .addr
-                                                        .toLowerCase();
-                                                    if (msgaddr !=
-                                                        widget.creator
-                                                            .toLowerCase()) {
-                                                      double val = double.parse(
-                                                          amtCont.text);
-                                                      int val_wei = (val *
-                                                          ether2wei) as int;
-                                                      print(val_wei);
+                                    return Center(
+                                      child: isCreate
+                                          ? CircularProgressIndicator()
+                                          : ElevatedButton(
+                                              onPressed: () async {
+                                                if (_formKey.currentState!
+                                                    .validate()) {
+                                                  await provider.connect();
+                                                  String msgaddr = provider.addr
+                                                      .toLowerCase();
+                                                  if (msgaddr !=
+                                                      widget.creator
+                                                          .toLowerCase()) {
+                                                    double val = double.parse(
+                                                        amtCont.text);
+                                                    int val_wei = (val *
+                                                        ether2wei) as int;
+                                                    print(val_wei);
 
-                                                      setState(() {
-                                                        isCreate = true;
-                                                      });
+                                                    setState(() {
+                                                      isCreate = true;
+                                                    });
 
-                                                      await context
-                                                          .read<
-                                                              MetaMaskProvider>()
-                                                          .contibute(
-                                                              widget.address,
-                                                              val_wei);
+                                                    await context
+                                                        .read<
+                                                            MetaMaskProvider>()
+                                                        .contibute(
+                                                            widget.address,
+                                                            val_wei);
 
-                                                      setState(() {
-                                                        isCreate = false;
-                                                        done = true;
-                                                      });
-                                                    } else {
-                                                      errorText =
-                                                          "Creator can't contribute!";
-                                                      setState(() {});
-                                                    }
+                                                    setState(() {
+                                                      isCreate = false;
+                                                      done = true;
+                                                    });
+                                                  } else {
+                                                    errorText =
+                                                        "Creator can't contribute!";
+                                                    setState(() {});
                                                   }
-                                                },
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          top: 8.0,
-                                                          bottom: 8.0),
-                                                  child:
-                                                      const Text('Contribute'),
-                                                ),
+                                                }
+                                              },
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 8.0, bottom: 8.0),
+                                                child: const Text('Contribute'),
                                               ),
-                                      );
-                                    })
-                                  : SizedBox.shrink()
+                                            ),
+                                    );
+                                  })
+                                ],
+                              ),
+                              SizedBox(height: 30),
                             ],
-                          ),
-                          SizedBox(height: 30),
-                        ],
-                      ))
+                          ))
+                      : SizedBox.shrink()
                 ],
               ),
             ),

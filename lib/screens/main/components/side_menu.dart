@@ -51,7 +51,7 @@ class SideMenu extends StatelessWidget {
             press: () {},
           ),
           DrawerListTile(
-            title: "Profile",
+            title: "Log Out",
             svgSrc: "assets/icons/menu_profile.svg",
             press: () {
               allProjects = [];

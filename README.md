@@ -1,2 +1,2 @@
-# Responsive Admin Panel or Dashboard - Flutter UI
+# Ethereum CrowdFunding
  Flutter + Blockchain CrowdFunding application

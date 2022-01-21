@@ -76,7 +76,7 @@ class _ContributeState extends State<Contribute> {
                   ),
                   SizedBox(height: 10),
                   Container(
-                    width: 350,
+                    width: size.width * 0.5,
                     color: Colors.grey[700],
                     child: Padding(
                       padding: const EdgeInsets.all(3.0),
@@ -95,7 +95,7 @@ class _ContributeState extends State<Contribute> {
                   ),
                   SizedBox(height: 4),
                   Container(
-                    width: 350,
+                    width: size.width * 0.5,
                     color: Colors.grey[700],
                     child: Padding(
                       padding: const EdgeInsets.all(3.0),
@@ -145,7 +145,7 @@ class _ContributeState extends State<Contribute> {
                         ),
                       ),
                       circularStrokeCap: CircularStrokeCap.round,
-                      progressColor: Colors.purple,
+                      progressColor: Color(0xFFFFA113),
                     ),
                   ),
                   SizedBox(height: 30),
@@ -177,8 +177,8 @@ class _ContributeState extends State<Contribute> {
                                       decoration: const InputDecoration(
                                           border: OutlineInputBorder(),
                                           hintText:
-                                              'Enter amount to contribute (Eth)',
-                                          labelText: 'Amount (Eth)'),
+                                              'Enter amount to contribute (ETH)',
+                                          labelText: 'Amount (ETH)'),
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
                                           return 'Please enter a valid amount!';

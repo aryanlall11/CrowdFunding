@@ -19,59 +19,94 @@ class _LoginState extends State<Login> {
     var size = MediaQuery.of(context).size;
     return Scaffold(
       body: Center(
-        child: Padding(
-          padding: EdgeInsets.only(top: size.height * 0.4),
-          child: Column(
-            children: [
-              ElevatedButton.icon(
-                style: TextButton.styleFrom(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: defaultPadding * 1,
-                    vertical:
-                        defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
-                  ),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 40,
+            ),
+            Container(
+              height: 100,
+              width: 100,
+              decoration: new BoxDecoration(
+                image: DecorationImage(
+                  image: new AssetImage('assets/images/logo.png'),
+                  fit: BoxFit.contain,
                 ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => MultiProvider(providers: [
-                              ChangeNotifierProvider(
-                                create: (context) => MenuController(),
-                              ),
-                            ], child: AdminScreen())),
-                  );
-                },
-                icon: Icon(Icons.admin_panel_settings_outlined),
-                label: Text("Admin"),
+                borderRadius: BorderRadius.circular(80.0),
               ),
-              SizedBox(
-                height: 20,
+            ),
+            SizedBox(
+              height: 40,
+            ),
+            Container(
+              height: size.height * 0.4,
+              width: size.width * 0.4,
+              // padding: EdgeInsets.all(defaultPadding),
+              decoration: BoxDecoration(
+                color: secondaryColor,
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
               ),
-              ElevatedButton.icon(
-                style: TextButton.styleFrom(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: defaultPadding * 1,
-                    vertical:
-                        defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Log in your respective user role",
+                    style: Theme.of(context).textTheme.bodyText2,
                   ),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => MultiProvider(providers: [
-                              ChangeNotifierProvider(
-                                create: (context) => MenuController(),
-                              ),
-                            ], child: MainScreen())),
-                  );
-                },
-                icon: Icon(Icons.person_outline_outlined),
-                label: Text("Users"),
-              )
-            ],
-          ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  ElevatedButton.icon(
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: defaultPadding * 1,
+                        vertical: defaultPadding /
+                            (Responsive.isMobile(context) ? 2 : 1),
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MultiProvider(providers: [
+                                  ChangeNotifierProvider(
+                                    create: (context) => MenuController(),
+                                  ),
+                                ], child: AdminScreen())),
+                      );
+                    },
+                    icon: Icon(Icons.admin_panel_settings_outlined),
+                    label: Text("Admin Panel"),
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  ElevatedButton.icon(
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: defaultPadding * 1,
+                        vertical: defaultPadding /
+                            (Responsive.isMobile(context) ? 2 : 1),
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MultiProvider(providers: [
+                                  ChangeNotifierProvider(
+                                    create: (context) => MenuController(),
+                                  ),
+                                ], child: MainScreen())),
+                      );
+                    },
+                    icon: Icon(Icons.person_outline_outlined),
+                    label: Text("User Window"),
+                  )
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

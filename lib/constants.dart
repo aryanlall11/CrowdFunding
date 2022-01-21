@@ -10,13 +10,19 @@ const bgColor = Color(0xFF212332);
 final random = new Random();
 
 List<String> icons = [
-  "assets/icons/xd_file.svg",
-  "assets/icons/Figma_file.svg",
-  "assets/icons/doc_file.svg",
-  "assets/icons/sound_file.svg",
-  "assets/icons/media_file.svg",
-  "assets/icons/pdf_file.svg",
-  "assets/icons/excle_file.svg"
+  "assets/icons/mona.png",
+  "assets/icons/mona2.png",
+  "assets/icons/mona3.png",
+  "assets/icons/mona4.png",
+  "assets/icons/mona5.png",
+
+  //     "assets/icons/xd_file.svg",
+  // "assets/icons/Figma_file.svg",
+  // "assets/icons/doc_file.svg",
+  // "assets/icons/sound_file.svg",
+  // "assets/icons/media_file.svg",
+  // "assets/icons/pdf_file.svg",
+  // "assets/icons/excle_file.svg"
 ];
 
 const defaultPadding = 16.0;

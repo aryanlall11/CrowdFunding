@@ -152,6 +152,7 @@ class _RecentFilesState extends State<RecentFiles> {
                                     status: temp[i].status,
                                     address: temp[i].address,
                                     creator: temp[i].creator,
+                                    mycontri: temp[i].mycontri,
                                     icon: temp[i].icon,
                                     live: real_live)
                             ],

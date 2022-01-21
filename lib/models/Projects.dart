@@ -1,6 +1,7 @@
 import 'package:admin/constants.dart';
 import 'package:admin/models/Approve.dart';
 import 'package:admin/models/Contribute.dart';
+import 'package:admin/models/Refund.dart';
 import 'package:admin/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,11 +16,13 @@ class Project {
       currBal,
       status,
       address,
+      mycontri,
       creator;
 
   Project(
       {this.isAdmin,
       this.title,
+      this.mycontri,
       this.description,
       this.icon,
       this.timeLeft,
@@ -42,6 +45,7 @@ class Project_Tile extends StatefulWidget {
       status,
       address,
       creator,
+      mycontri,
       icon,
       live;
   const Project_Tile(
@@ -54,6 +58,7 @@ class Project_Tile extends StatefulWidget {
       this.status,
       this.address,
       this.creator,
+      this.mycontri,
       this.icon,
       this.live,
       this.isAdmin})
@@ -73,6 +78,9 @@ class _Project_TileState extends State<Project_Tile> {
     else if (widget.status == 2)
       status = "Expired";
     else if (widget.status == 1) status = "Fundraising";
+
+    bool isRefund = false;
+    if (widget.status == 2 && widget.mycontri > 0) isRefund = true;
 
     return Padding(
       padding: EdgeInsets.only(top: 6.0, bottom: 6),
@@ -125,7 +133,7 @@ class _Project_TileState extends State<Project_Tile> {
                       child: Text(status),
                     ),
             ),
-            widget.live
+            (widget.live || isRefund)
                 ? ElevatedButton.icon(
                     style: TextButton.styleFrom(
                       padding: EdgeInsets.symmetric(
@@ -144,11 +152,15 @@ class _Project_TileState extends State<Project_Tile> {
                           widget.goal,
                           widget.currBal,
                           status,
+                          widget.mycontri,
+                          isRefund,
                           widget.address,
                           widget.creator);
                     },
                     icon: Icon(Icons.monetization_on_outlined),
-                    label: Text(widget.isAdmin ? "Approve" : "Contribute"),
+                    label: Text(isRefund
+                        ? "Get Refund"
+                        : (widget.isAdmin ? "Approve" : "Contribute")),
                   )
                 : SizedBox.shrink(),
           ],
@@ -163,6 +175,8 @@ class _Project_TileState extends State<Project_Tile> {
               widget.goal,
               widget.currBal,
               status,
+              widget.mycontri,
+              isRefund,
               widget.address,
               widget.creator);
         },
@@ -172,25 +186,33 @@ class _Project_TileState extends State<Project_Tile> {
 }
 
 Future openDialog(context, isAdmin, title, description, timeLeft, goal, currBal,
-        status, address, creator) =>
+        status, mycontri, isRefund, address, creator) =>
     showDialog(
         context: context,
-        builder: (context) => !isAdmin
-            ? Contribute(
+        builder: (context) => isRefund
+            ? Refund(
                 title: title,
                 description: description,
-                timeLeft: timeLeft,
                 goal: goal,
-                currBal: currBal,
-                status: status,
                 address: address,
-                creator: creator)
-            : Approve(
-                title: title,
-                description: description,
-                timeLeft: timeLeft,
-                goal: goal,
-                currBal: currBal,
-                status: status,
-                address: address,
-                creator: creator));
+                creator: creator,
+                mycontri: mycontri)
+            : (!isAdmin
+                ? Contribute(
+                    title: title,
+                    description: description,
+                    timeLeft: timeLeft,
+                    goal: goal,
+                    currBal: currBal,
+                    status: status,
+                    address: address,
+                    creator: creator)
+                : Approve(
+                    title: title,
+                    description: description,
+                    timeLeft: timeLeft,
+                    goal: goal,
+                    currBal: currBal,
+                    status: status,
+                    address: address,
+                    creator: creator)));

@@ -31,6 +31,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         String creator = context.read<MetaMaskProvider>().creator;
         int goal = context.read<MetaMaskProvider>().goalAmount;
         int currBal = context.read<MetaMaskProvider>().currBal;
+        int mycontri = context.read<MetaMaskProvider>().contri;
         String title = context.read<MetaMaskProvider>().title;
         String description = context.read<MetaMaskProvider>().description;
         double goal_eth = goal.toDouble() / ether2wei;
@@ -51,6 +52,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             status: state,
             creator: creator,
             address: address,
+            mycontri: mycontri,
             icon: icons[random.nextInt(icons.length)]));
       }
 

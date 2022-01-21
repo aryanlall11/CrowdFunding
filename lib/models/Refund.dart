@@ -7,28 +7,25 @@ import 'package:provider/provider.dart';
 import 'package:provider/src/provider.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
-class Approve extends StatefulWidget {
-  final title, description, timeLeft, goal, currBal, status, address, creator;
-  const Approve(
+class Refund extends StatefulWidget {
+  final title, description, goal, address, creator, mycontri;
+  const Refund(
       {Key? key,
       this.title,
       this.description,
-      this.timeLeft,
       this.goal,
-      this.currBal,
-      this.status,
       this.address,
-      this.creator})
+      this.creator,
+      this.mycontri})
       : super(key: key);
 
   @override
-  _ApproveState createState() => _ApproveState();
+  _RefundState createState() => _RefundState();
 }
 
-class _ApproveState extends State<Approve> {
+class _RefundState extends State<Refund> {
   bool isCreate = false;
   bool done = false;
-  String errorText = "";
 
   @override
   Widget build(BuildContext context) {
@@ -41,26 +38,12 @@ class _ApproveState extends State<Approve> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(widget.title),
-                errorText.length > 0
-                    ? Row(
-                        children: [
-                          Icon(
-                            Icons.error_outline,
-                            color: Colors.redAccent,
-                          ),
-                          SizedBox(
-                            width: 6,
-                          ),
-                          Text(errorText,
-                              style: Theme.of(context).textTheme.subtitle2)
-                        ],
+                done
+                    ? Icon(
+                        Icons.check_circle_outline,
+                        color: Colors.green,
                       )
-                    : done
-                        ? Icon(
-                            Icons.check_circle_outline,
-                            color: Colors.green,
-                          )
-                        : SizedBox.shrink(),
+                    : SizedBox.shrink(),
               ],
             ),
             content: Container(
@@ -115,60 +98,43 @@ class _ApproveState extends State<Approve> {
                   ),
                   SizedBox(height: 10),
                   Text(
-                    "Time Left   :  ${widget.timeLeft}",
+                    "Goal Amount   :  ${widget.goal} ETH",
                     style: Theme.of(context).textTheme.subtitle1,
                   ),
                   SizedBox(height: 10),
                   Text(
-                    "Goal Amount   :  ${widget.goal} ETH",
+                    "Your Contribution   :  ${(widget.mycontri) / ether2wei.toDouble()} ETH",
                     style: Theme.of(context).textTheme.subtitle1,
                   ),
                   SizedBox(height: 30),
-                  widget.status.length == 0
-                      ? Consumer<MetaMaskProvider>(
-                          builder: (context, provider, child) {
-                          return Center(
-                            child: isCreate
-                                ? CircularProgressIndicator()
-                                : ElevatedButton(
-                                    onPressed: () async {
-                                      await context
-                                          .read<MetaMaskProvider>()
-                                          .connect();
-                                      String msgaddr = context
-                                          .read<MetaMaskProvider>()
-                                          .currentAddress
-                                          .toLowerCase();
+                  Consumer<MetaMaskProvider>(
+                      builder: (context, provider, child) {
+                    return Center(
+                      child: isCreate
+                          ? CircularProgressIndicator()
+                          : ElevatedButton(
+                              onPressed: () async {
+                                setState(() {
+                                  isCreate = true;
+                                });
 
-                                      if (msgaddr !=
-                                          widget.creator.toLowerCase()) {
-                                        setState(() {
-                                          isCreate = true;
-                                        });
+                                await context
+                                    .read<MetaMaskProvider>()
+                                    .refund(widget.address);
 
-                                        await context
-                                            .read<MetaMaskProvider>()
-                                            .approve(widget.address);
-
-                                        setState(() {
-                                          isCreate = false;
-                                          done = true;
-                                        });
-                                      } else {
-                                        errorText =
-                                            "Project creator can't approve!";
-                                        setState(() {});
-                                      }
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 8.0, bottom: 8.0),
-                                      child: const Text('Approve'),
-                                    ),
-                                  ),
-                          );
-                        })
-                      : SizedBox.shrink()
+                                setState(() {
+                                  isCreate = false;
+                                  done = true;
+                                });
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 8.0, bottom: 8.0),
+                                child: const Text('Get Refund'),
+                              ),
+                            ),
+                    );
+                  })
                 ],
               ),
             ),

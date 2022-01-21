@@ -22,6 +22,7 @@ class MetaMaskProvider extends ChangeNotifier {
   int goalAmount = 0;
   int currBal = 0;
   int nowTime = 0;
+  int contri = 0;
 
   String get addr => currentAddress;
 
@@ -120,6 +121,11 @@ class MetaMaskProvider extends ChangeNotifier {
     BigInt deadline = await PrjCont!.call<BigInt>('raiseUntil');
     raiseUntil = deadline.toInt();
     state = await PrjCont!.call<int>('state');
+
+    BigInt contri_tm =
+        await PrjCont!.call<BigInt>('contributions', [currentAddress]);
+    contri = contri_tm.toInt();
+
     //state = state_tm.toInt();
 
     //notifyListeners();
@@ -133,6 +139,17 @@ class MetaMaskProvider extends ChangeNotifier {
       provider!.getSigner(),
     );
     await PrjCont!.call('approve');
+    //notifyListeners();
+  }
+
+  refund(String address) async {
+    // ignore: prefer_conditional_assignment
+    PrjCont = Contract(
+      address,
+      prjABI,
+      provider!.getSigner(),
+    );
+    await PrjCont!.call('getRefund');
     //notifyListeners();
   }
 

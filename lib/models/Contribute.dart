@@ -76,7 +76,7 @@ class _ContributeState extends State<Contribute> {
                   ),
                   SizedBox(height: 10),
                   Container(
-                    width: size.width * 0.25,
+                    width: 350,
                     color: Colors.grey[700],
                     child: Padding(
                       padding: const EdgeInsets.all(3.0),
@@ -95,7 +95,7 @@ class _ContributeState extends State<Contribute> {
                   ),
                   SizedBox(height: 4),
                   Container(
-                    width: size.width * 0.25,
+                    width: 350,
                     color: Colors.grey[700],
                     child: Padding(
                       padding: const EdgeInsets.all(3.0),

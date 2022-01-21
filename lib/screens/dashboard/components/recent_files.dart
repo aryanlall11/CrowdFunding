@@ -38,7 +38,7 @@ class _RecentFilesState extends State<RecentFiles> {
               !widget.isAdmin
                   ? (live == 1 ? "Live Projects" : "Past Projects")
                   : (live == 0 ? "Pending Requests" : "Past Approvals"),
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.headline6,
             ),
             SizedBox(height: 15),
             SizedBox(
@@ -76,7 +76,7 @@ class _RecentFilesState extends State<RecentFiles> {
                                             "Project Title",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .subtitle1,
+                                                .subtitle2,
                                           ),
                                         ),
                                         Container(
@@ -85,16 +85,16 @@ class _RecentFilesState extends State<RecentFiles> {
                                             "Time Left",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .subtitle1,
+                                                .subtitle2,
                                           ),
                                         ),
                                         Container(
                                           width: size.width * 0.2,
                                           child: Text(
-                                            "Goal Amount (Eth)",
+                                            "Goal Amount (ETH)",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .subtitle1,
+                                                .subtitle2,
                                           ),
                                         ),
                                         SizedBox(
@@ -112,7 +112,7 @@ class _RecentFilesState extends State<RecentFiles> {
                                             "Project Title",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .subtitle1,
+                                                .subtitle2,
                                           ),
                                         ),
                                         Container(
@@ -121,7 +121,7 @@ class _RecentFilesState extends State<RecentFiles> {
                                             "Goal Amount (Eth)",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .subtitle1,
+                                                .subtitle2,
                                           ),
                                         ),
                                         Container(
@@ -130,7 +130,7 @@ class _RecentFilesState extends State<RecentFiles> {
                                             "Status",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .subtitle1,
+                                                .subtitle2,
                                           ),
                                         ),
                                         SizedBox(

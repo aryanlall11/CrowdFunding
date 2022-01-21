@@ -92,10 +92,14 @@ class _Project_TileState extends State<Project_Tile> {
               width: size.width * 0.2,
               child: Row(
                 children: [
-                  SvgPicture.asset(
+                  // SvgPicture.asset(
+                  //   widget.icon!,
+                  //   height: 30,
+                  //   width: 30,
+                  // ),
+                  Image.asset(
                     widget.icon!,
                     height: 30,
-                    width: 30,
                   ),
                   Padding(
                     padding:

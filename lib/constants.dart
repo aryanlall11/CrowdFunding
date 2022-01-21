@@ -27,7 +27,8 @@ var allProjects_len = ValueNotifier<int>(allProjects.length);
 
 /*---------------------- CONTRACT INFO -----------------------*/
 //"0x41EFcF455164958e033e69eC0913177E95ed27AC";
-final CFAddress = "0x58EEab28F3feF875bdA46C46160FF9E970B239C1";
+//"0x58EEab28F3feF875bdA46C46160FF9E970B239C1";
+final CFAddress = "0x85a35c9fa19Eb698B2C3825bCEAF9Fe2C6CFeA95";
 
 final CFAbi = '''[
 	{
@@ -107,33 +108,6 @@ final CFAbi = '''[
 
 final prjABI = '''[
 	{
-		"inputs": [],
-		"name": "approve",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "contribute",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getRefund",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "address payable",
@@ -166,7 +140,60 @@ final prjABI = '''[
 	},
 	{
 		"inputs": [],
+		"name": "activeRequest",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "amountGoal",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "approve",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "idx",
+				"type": "uint256"
+			}
+		],
+		"name": "approveRequest",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "contribute",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "contributerCount",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -194,6 +221,24 @@ final prjABI = '''[
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "desc",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "value",
+				"type": "uint256"
+			}
+		],
+		"name": "createRequest",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -241,23 +286,75 @@ final prjABI = '''[
 		"outputs": [
 			{
 				"internalType": "address payable",
-				"name": "projectStarter",
+				"name": "",
 				"type": "address"
 			},
 			{
-				"internalType": "string",
-				"name": "projectTitle",
-				"type": "string"
-			},
-			{
 				"internalType": "uint256",
-				"name": "currentAmount",
+				"name": "",
 				"type": "uint256"
 			},
 			{
 				"internalType": "uint256",
-				"name": "goalAmount",
+				"name": "",
 				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "enum Project.State",
+				"name": "",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getRefund",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "idx",
+				"type": "uint256"
+			}
+		],
+		"name": "isApproval",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -270,6 +367,53 @@ final prjABI = '''[
 			{
 				"internalType": "uint256",
 				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "requestLength",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "requests",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "description",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "value",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "complete",
+				"type": "bool"
+			},
+			{
+				"internalType": "uint256",
+				"name": "approvalCount",
 				"type": "uint256"
 			}
 		],

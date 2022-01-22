@@ -194,8 +194,11 @@ class _CreateProjectState extends State<CreateProject> {
 
                                           await context
                                               .read<MetaMaskProvider>()
-                                              .createProject(title, description,
-                                                  val_wei, raiseUntil);
+                                              .createProject(
+                                                  title,
+                                                  description,
+                                                  (val_wei / 1000000) as int,
+                                                  raiseUntil);
 
                                           setState(() {
                                             isCreate = false;

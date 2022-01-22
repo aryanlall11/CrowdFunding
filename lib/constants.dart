@@ -9,6 +9,8 @@ const secondaryColor = Color(0xFF2A2D3E);
 const bgColor = Color(0xFF212332);
 final random = new Random();
 
+String current_account = "";
+
 List<String> icons = [
   "assets/icons/mona.png",
   "assets/icons/mona2.png",
@@ -34,7 +36,8 @@ var allProjects_len = ValueNotifier<int>(allProjects.length);
 /*---------------------- CONTRACT INFO -----------------------*/
 //"0x41EFcF455164958e033e69eC0913177E95ed27AC";
 //"0x58EEab28F3feF875bdA46C46160FF9E970B239C1";
-final CFAddress = "0x85a35c9fa19Eb698B2C3825bCEAF9Fe2C6CFeA95";
+//0x85a35c9fa19Eb698B2C3825bCEAF9Fe2C6CFeA95
+final CFAddress = "0xDF9815e39926e3D86645f01Fe1b2D9a78Ca4dC85";
 
 final CFAbi = '''[
 	{

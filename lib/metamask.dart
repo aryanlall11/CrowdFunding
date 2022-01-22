@@ -23,6 +23,10 @@ class MetaMaskProvider extends ChangeNotifier {
   int currBal = 0;
   int nowTime = 0;
   int contri = 0;
+  int requestLength = 0;
+  int contriCount = 0;
+  bool reqActive = false;
+  bool myApproval = false;
 
   String get addr => currentAddress;
 
@@ -35,7 +39,10 @@ class MetaMaskProvider extends ChangeNotifier {
   Future<void> connect() async {
     if (isEnabled) {
       final accs = await ethereum!.requestAccount();
-      if (accs.isNotEmpty) currentAddress = accs.first;
+      if (accs.isNotEmpty) {
+        currentAddress = accs.first;
+        current_account = accs.first.toLowerCase();
+      }
       currentChain = await ethereum!.getChainId();
       notifyListeners();
     }
@@ -43,6 +50,7 @@ class MetaMaskProvider extends ChangeNotifier {
 
   clear() {
     currentAddress = '';
+    current_account = '';
     currentChain = -1;
     CFCont = null;
     PrjCont = null;
@@ -114,6 +122,7 @@ class MetaMaskProvider extends ChangeNotifier {
     currBal = bal.toInt();
 
     creator = await PrjCont!.call<String>('creator');
+    reqActive = await PrjCont!.call<bool>('activeRequest');
 
     title = await PrjCont!.call<String>('title');
     description = await PrjCont!.call<String>('description');
@@ -126,9 +135,34 @@ class MetaMaskProvider extends ChangeNotifier {
         await PrjCont!.call<BigInt>('contributions', [currentAddress]);
     contri = contri_tm.toInt();
 
-    //state = state_tm.toInt();
+    BigInt contriCount_tm = await PrjCont!.call<BigInt>('contributerCount');
+    contriCount = contriCount_tm.toInt();
 
-    //notifyListeners();
+    BigInt reqLn = await PrjCont!.call<BigInt>('requestLength');
+    requestLength = reqLn.toInt();
+
+    // for (int i = 0; i < requestLength; i++) {
+    //   var req = await PrjCont!.call('requests', [i]);
+    //   print(req);
+    // }
+
+    if (reqActive) {
+      myApproval = await PrjCont!.call<bool>('isApproval', [requestLength - 1]);
+    }
+  }
+
+  Future<List?> getRequests(String address, int idx) async {
+    PrjCont = Contract(
+      address,
+      prjABI,
+      provider!,
+    );
+    List reqs = [];
+    for (int i = 0; i < idx; i++) {
+      var req = await PrjCont!.call('requests', [i]);
+      reqs.add(req);
+    }
+    return reqs;
   }
 
   approve(String address) async {
@@ -151,6 +185,26 @@ class MetaMaskProvider extends ChangeNotifier {
     );
     await PrjCont!.call('getRefund');
     //notifyListeners();
+  }
+
+  createRequest(String address, String desc, int val) async {
+    // ignore: prefer_conditional_assignment
+    PrjCont = Contract(
+      address,
+      prjABI,
+      provider!.getSigner(),
+    );
+    await PrjCont!.call('createRequest', [desc, val]);
+    //notifyListeners();
+  }
+
+  approveReq(String address, int val) async {
+    PrjCont = Contract(
+      address,
+      prjABI,
+      provider!.getSigner(),
+    );
+    await PrjCont!.call('approveRequest', [val]);
   }
 
   createProject(String title, String desc, int val, int deadline) async {

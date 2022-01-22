@@ -57,7 +57,7 @@ class _RefundState extends State<Refund> {
                   ),
                   SizedBox(height: 10),
                   Container(
-                    width: 350,
+                    width: size.width * 0.5,
                     color: Colors.grey[700],
                     child: Padding(
                       padding: const EdgeInsets.all(3.0),
@@ -76,7 +76,7 @@ class _RefundState extends State<Refund> {
                   ),
                   SizedBox(height: 4),
                   Container(
-                    width: 350,
+                    width: size.width * 0.5,
                     color: Colors.grey[700],
                     child: Padding(
                       padding: const EdgeInsets.all(3.0),

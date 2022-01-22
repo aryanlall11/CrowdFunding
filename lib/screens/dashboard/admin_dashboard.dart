@@ -22,6 +22,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   Future<bool> getProjects(BuildContext context) async {
     if (allProjects.length == 0) {
       await context.read<MetaMaskProvider>().getTotalProjects();
+      await context.read<MetaMaskProvider>().getTime();
       int num = context.read<MetaMaskProvider>().totalProjects;
 
       for (int i = 0; i < num; i++) {
@@ -36,10 +37,13 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
         String description = context.read<MetaMaskProvider>().description;
         double goal_eth = goal.toDouble() / ether2wei;
         double curr_eth = currBal.toDouble() / ether2wei;
-        await context.read<MetaMaskProvider>().getTime();
         int nowTime = context.read<MetaMaskProvider>().nowTime;
         int raiseUntil = context.read<MetaMaskProvider>().raiseUntil;
         int state = context.read<MetaMaskProvider>().state;
+        int contriCount = context.read<MetaMaskProvider>().contriCount;
+        int reqLength = context.read<MetaMaskProvider>().requestLength;
+        bool activeReq = context.read<MetaMaskProvider>().reqActive;
+        bool myApproval = context.read<MetaMaskProvider>().myApproval;
         //print(creator);
 
         allProjects.add(Project(
@@ -53,6 +57,10 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
             creator: creator,
             address: address,
             mycontri: mycontri,
+            contriCount: contriCount,
+            reqLength: reqLength,
+            activeReq: activeReq,
+            myApproval: myApproval,
             icon: icons[random.nextInt(icons.length)]));
       }
 

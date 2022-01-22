@@ -17,10 +17,17 @@ class Project {
       status,
       address,
       mycontri,
+      contriCount,
+      reqLength,
+      activeReq,
+      myApproval,
       creator;
 
   Project(
       {this.isAdmin,
+      this.contriCount,
+      this.reqLength,
+      this.activeReq,
       this.title,
       this.mycontri,
       this.description,
@@ -30,6 +37,7 @@ class Project {
       this.currBal,
       this.status,
       this.address,
+      this.myApproval,
       this.creator});
 }
 
@@ -46,6 +54,10 @@ class Project_Tile extends StatefulWidget {
       address,
       creator,
       mycontri,
+      contriCount,
+      reqLength,
+      activeReq,
+      myApproval,
       icon,
       live;
   const Project_Tile(
@@ -59,7 +71,11 @@ class Project_Tile extends StatefulWidget {
       this.address,
       this.creator,
       this.mycontri,
+      this.contriCount,
+      this.reqLength,
+      this.activeReq,
       this.icon,
+      this.myApproval,
       this.live,
       this.isAdmin})
       : super(key: key);
@@ -81,6 +97,16 @@ class _Project_TileState extends State<Project_Tile> {
 
     bool isRefund = false;
     if (widget.status == 2 && widget.mycontri > 0) isRefund = true;
+
+    bool createReq = false;
+    bool approveReq = false;
+    if ((current_account == widget.creator.toString().toLowerCase()) &&
+        (widget.status == 3) &&
+        !widget.activeReq) createReq = true;
+    if ((widget.status == 3) &&
+        (widget.mycontri > 0) &&
+        widget.activeReq &&
+        !widget.myApproval) approveReq = true;
 
     return Padding(
       padding: EdgeInsets.only(top: 6.0, bottom: 6),
@@ -137,7 +163,7 @@ class _Project_TileState extends State<Project_Tile> {
                       child: Text(status),
                     ),
             ),
-            (widget.live || isRefund)
+            (widget.live || isRefund || createReq || approveReq)
                 ? ElevatedButton.icon(
                     style: TextButton.styleFrom(
                       padding: EdgeInsets.symmetric(
@@ -158,13 +184,19 @@ class _Project_TileState extends State<Project_Tile> {
                           status,
                           widget.mycontri,
                           isRefund,
+                          createReq,
+                          approveReq,
+                          widget.contriCount,
+                          widget.reqLength,
                           widget.address,
                           widget.creator);
                     },
                     icon: Icon(Icons.monetization_on_outlined),
-                    label: Text(isRefund
-                        ? "Get Refund"
-                        : (widget.isAdmin ? "Approve" : "Contribute")),
+                    label: Text((widget.live || isRefund)
+                        ? (isRefund
+                            ? "Get Refund"
+                            : (widget.isAdmin ? "Approve" : "Contribute"))
+                        : (createReq ? "Add Request" : "View Request")),
                   )
                 : SizedBox.shrink(),
           ],
@@ -181,6 +213,10 @@ class _Project_TileState extends State<Project_Tile> {
               status,
               widget.mycontri,
               isRefund,
+              createReq,
+              approveReq,
+              widget.contriCount,
+              widget.reqLength,
               widget.address,
               widget.creator);
         },
@@ -189,8 +225,23 @@ class _Project_TileState extends State<Project_Tile> {
   }
 }
 
-Future openDialog(context, isAdmin, title, description, timeLeft, goal, currBal,
-        status, mycontri, isRefund, address, creator) =>
+Future openDialog(
+        context,
+        isAdmin,
+        title,
+        description,
+        timeLeft,
+        goal,
+        currBal,
+        status,
+        mycontri,
+        isRefund,
+        createReq,
+        approveReq,
+        contriCount,
+        reqLength,
+        address,
+        creator) =>
     showDialog(
         context: context,
         builder: (context) => isRefund
@@ -210,7 +261,12 @@ Future openDialog(context, isAdmin, title, description, timeLeft, goal, currBal,
                     currBal: currBal,
                     status: status,
                     address: address,
-                    creator: creator)
+                    creator: creator,
+                    createReq: createReq,
+                    approveReq: approveReq,
+                    contriCount: contriCount,
+                    reqLength: reqLength,
+                  )
                 : Approve(
                     title: title,
                     description: description,

@@ -154,7 +154,11 @@ class _RecentFilesState extends State<RecentFiles> {
                                     creator: temp[i].creator,
                                     mycontri: temp[i].mycontri,
                                     icon: temp[i].icon,
-                                    live: real_live)
+                                    live: real_live,
+                                    contriCount: temp[i].contriCount,
+                                    reqLength: temp[i].reqLength,
+                                    activeReq: temp[i].activeReq,
+                                    myApproval: temp[i].myApproval)
                             ],
                           )
                         : Center(

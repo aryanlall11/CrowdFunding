@@ -348,7 +348,7 @@ class _ContributeState extends State<Contribute> {
                                               .createRequest(
                                                 widget.address,
                                                 addReqDes.text,
-                                                val_wei,
+                                                (val_wei / 1000000) as int,
                                               );
 
                                           setState(() {

@@ -16,12 +16,15 @@ There is something more to it! Users can view the past funding raised and their 
 
 ## Screenshots
 
-Login Window
+**Login Window**
+
 ![Login Window](/screenshot/1.PNG)
 
-User Window
+**User Window**
+
 ![User Window](/screenshot/2.PNG)
  
-Admin Panel
+**Admin Panel**
+
 ![Admin Panel](/screenshot/3.PNG)
  

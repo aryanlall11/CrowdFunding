@@ -14,7 +14,7 @@ Functionality-wise;
 
 There is something more to it! Users can view the past funding raised and their status. Users can also act as an artist and list their creations.
 
-### Screenshots
+## Screenshots
 
 Login Window
 ![Login Window](/screenshot/1.PNG)

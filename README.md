@@ -23,5 +23,5 @@ User Window
 ![User Window](/screenshot/2.PNG)
  
 Admin Panel
-![Admin Panel](/screenshot/2.PNG)
+![Admin Panel](/screenshot/3.PNG)
  

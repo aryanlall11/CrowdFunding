@@ -1,4 +1,4 @@
-# Ethereum Crowdfunding WebApp - Art Buster
+# Art Buster - Ethereum Crowdfunding WebApp
  
  **Solidity Code --> contract/crowd.sol**
  

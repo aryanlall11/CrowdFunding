@@ -12,7 +12,7 @@ contract Crowdfunding {
         uint256 raiseUntil
     ) external {
         uint256 deadline = block.timestamp + raiseUntil;
-        Project newProject = new Project(payable(msg.sender), title, description, amountToRaise, deadline);
+        Project newProject = new Project(payable(msg.sender), title, description, amountToRaise*1000000, deadline);
         projects[id] = newProject;
         id += 1;
     }  
@@ -91,7 +91,6 @@ contract Project {
     function contribute() external inState(State.Fundraising) payable {
         require(msg.sender != creator, "Creator can't contribute to the project!");
         require(!checkIfDeadlineMet(), "Contribution deadline has been crossed!");
-
         if(contributions[msg.sender] == 0 && msg.value > 0){
             contributerCount += 1;
         }
@@ -102,12 +101,13 @@ contract Project {
     }
 
     function createRequest(string calldata desc, uint256 value) external restricted inState(State.Successful) {
+        uint256 value_scaled = value*1000000;
         require(!activeRequest, "There is already an active request!");
-        require(value <= currentBalance, "Your request exceeds the available balance!");
+        require(value_scaled <= currentBalance, "Your request exceeds the available balance!");
 
         Request storage newRequest = requests[requestLength++];
         newRequest.description = desc;
-        newRequest.value = value;
+        newRequest.value = value_scaled;
         newRequest.complete = false;
         newRequest.approvalCount = 0;
         activeRequest = true;
@@ -126,14 +126,17 @@ contract Project {
 
     function finalRequest(uint idx) private inState(State.Successful) returns(bool) {
         Request storage request = requests[idx];
-        require(request.approvalCount > (contributerCount / 2), "Majority disapproves for the transaction!");
-        require(!request.complete, "Request is already completed!");
-        if(creator.send(request.value))
+        // require(request.approvalCount > (contributerCount / 2), "Majority disapproves for the transaction!");
+        // require(!request.complete, "Request is already completed!");
+        if((request.approvalCount > (contributerCount / 2)) && !request.complete)
         {
-            activeRequest = false;
-            currentBalance -= request.value;
-            request.complete = true;
-            return true;
+            if(creator.send(request.value))
+            {
+                activeRequest = false;
+                currentBalance -= request.value;
+                request.complete = true;
+                return true;
+            }
         }
         return false;
     }
@@ -143,7 +146,7 @@ contract Project {
         state = State.Fundraising;
     }
 
-    function checkIfDeadlineMet() internal returns (bool) {
+    function checkIfDeadlineMet() public returns (bool) {
         if (block.timestamp > raiseUntil) {
             state = State.Expired;
             return true;

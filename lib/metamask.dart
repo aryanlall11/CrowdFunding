@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:admin/constants.dart';
+import 'package:admin/models/Projects.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_web3/flutter_web3.dart';
 //import 'package:funding/constants.dart';
@@ -54,6 +57,7 @@ class MetaMaskProvider extends ChangeNotifier {
     currentChain = -1;
     CFCont = null;
     PrjCont = null;
+    allProjects = [];
     notifyListeners();
   }
 
@@ -113,7 +117,7 @@ class MetaMaskProvider extends ChangeNotifier {
     PrjCont = Contract(
       address,
       prjABI,
-      provider!,
+      provider!.getSigner(),
     );
     BigInt goal = await PrjCont!.call<BigInt>('amountGoal');
     goalAmount = goal.toInt();
@@ -131,6 +135,11 @@ class MetaMaskProvider extends ChangeNotifier {
     raiseUntil = deadline.toInt();
     state = await PrjCont!.call<int>('state');
 
+    if ((raiseUntil < nowTime) && state != 2) {
+      await PrjCont!.call('checkIfDeadlineMet');
+      state = 2;
+    }
+
     BigInt contri_tm =
         await PrjCont!.call<BigInt>('contributions', [currentAddress]);
     contri = contri_tm.toInt();
@@ -140,11 +149,6 @@ class MetaMaskProvider extends ChangeNotifier {
 
     BigInt reqLn = await PrjCont!.call<BigInt>('requestLength');
     requestLength = reqLn.toInt();
-
-    // for (int i = 0; i < requestLength; i++) {
-    //   var req = await PrjCont!.call('requests', [i]);
-    //   print(req);
-    // }
 
     if (reqActive) {
       myApproval = await PrjCont!.call<bool>('isApproval', [requestLength - 1]);

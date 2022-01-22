@@ -24,6 +24,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
       await context.read<MetaMaskProvider>().getTotalProjects();
       await context.read<MetaMaskProvider>().getTime();
       int num = context.read<MetaMaskProvider>().totalProjects;
+      int nowTime = context.read<MetaMaskProvider>().nowTime;
 
       for (int i = 0; i < num; i++) {
         await context.read<MetaMaskProvider>().getProjects(i);
@@ -37,7 +38,6 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
         String description = context.read<MetaMaskProvider>().description;
         double goal_eth = goal.toDouble() / ether2wei;
         double curr_eth = currBal.toDouble() / ether2wei;
-        int nowTime = context.read<MetaMaskProvider>().nowTime;
         int raiseUntil = context.read<MetaMaskProvider>().raiseUntil;
         int state = context.read<MetaMaskProvider>().state;
         int contriCount = context.read<MetaMaskProvider>().contriCount;

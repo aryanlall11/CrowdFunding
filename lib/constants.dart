@@ -37,7 +37,7 @@ var allProjects_len = ValueNotifier<int>(allProjects.length);
 //"0x41EFcF455164958e033e69eC0913177E95ed27AC";
 //"0x58EEab28F3feF875bdA46C46160FF9E970B239C1";
 //0x85a35c9fa19Eb698B2C3825bCEAF9Fe2C6CFeA95
-final CFAddress = "0x6B194F7Ba024F24f8d5aA0bF8BD6e11021820c01";
+final CFAddress = "0x035A70b8914dfFF566834c4770faA2175E33eEfd";
 
 final CFAbi = '''[
 	{
@@ -190,6 +190,19 @@ final prjABI = '''[
 		],
 		"name": "approveRequest",
 		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "checkIfDeadlineMet",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},

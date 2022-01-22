@@ -296,7 +296,7 @@ class _ContributeState extends State<Contribute> {
                                                       Alignment.centerRight,
                                                   width: size.width * 0.07,
                                                   child: Text(
-                                                    "Amount (Eth) : ",
+                                                    "Amount (ETH) : ",
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .subtitle1,
@@ -313,7 +313,7 @@ class _ContributeState extends State<Contribute> {
                                                       hintText:
                                                           'Enter the requested amount',
                                                       labelText:
-                                                          'Amount (Eth)'),
+                                                          'Amount (ETH)'),
                                                   validator: (value) {
                                                     if (value == null ||
                                                         value.isEmpty) {
@@ -423,14 +423,16 @@ class _ContributeState extends State<Contribute> {
                                                     String msgaddr = provider
                                                         .addr
                                                         .toLowerCase();
-                                                    if (msgaddr !=
-                                                        widget.creator
-                                                            .toLowerCase()) {
-                                                      double val = double.parse(
-                                                          amtCont.text);
+                                                    double val = double.parse(
+                                                        amtCont.text);
+                                                    if ((msgaddr !=
+                                                            widget.creator
+                                                                .toLowerCase()) &&
+                                                        (widget.currBal + val <=
+                                                            widget.goal)) {
                                                       int val_wei = (val *
                                                           ether2wei) as int;
-                                                      print(val_wei);
+                                                      //print(val_wei);
 
                                                       setState(() {
                                                         isCreate = true;
@@ -448,8 +450,13 @@ class _ContributeState extends State<Contribute> {
                                                         done = true;
                                                       });
                                                     } else {
-                                                      errorText =
-                                                          "Creator can't contribute!";
+                                                      if (widget.currBal + val >
+                                                          widget.goal)
+                                                        errorText =
+                                                            "Net contribution can't exceed goal amount!";
+                                                      else
+                                                        errorText =
+                                                            "Creator can't contribute!";
                                                       setState(() {});
                                                     }
                                                   }

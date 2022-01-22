@@ -119,7 +119,7 @@ class _CreateProjectState extends State<CreateProject> {
                                 alignment: Alignment.centerRight,
                                 width: size.width * 0.1,
                                 child: Text(
-                                  "Raise Till (days) : ",
+                                  "Raise Till (sec) : ",
                                   style: Theme.of(context).textTheme.subtitle1,
                                 )),
                             SizedBox(width: 10),
@@ -148,7 +148,7 @@ class _CreateProjectState extends State<CreateProject> {
                                 alignment: Alignment.centerRight,
                                 width: size.width * 0.1,
                                 child: Text(
-                                  "Goal Amount (Eth) : ",
+                                  "Goal Amount (ETH) : ",
                                   style: Theme.of(context).textTheme.subtitle1,
                                 )),
                             SizedBox(width: 10),
@@ -158,7 +158,7 @@ class _CreateProjectState extends State<CreateProject> {
                                 keyboardType: TextInputType.number,
                                 decoration: const InputDecoration(
                                     border: OutlineInputBorder(),
-                                    hintText: 'Enter the amount to raise (Eth)',
+                                    hintText: 'Enter the amount to raise (ETH)',
                                     labelText: 'Goal Amount'),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {

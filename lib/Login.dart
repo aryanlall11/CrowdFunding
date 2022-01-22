@@ -106,6 +106,32 @@ class _LoginState extends State<Login> {
                 ],
               ),
             ),
+            SizedBox(
+              height: 40,
+            ),
+            Container(
+              height: size.height * 0.2,
+              width: size.width * 0.15,
+              decoration: BoxDecoration(
+                color: secondaryColor,
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text("Team"),
+                    Divider(
+                      color: Colors.grey,
+                    ),
+                    Text("Aryan Lall"),
+                    Text("Ritiz Saini"),
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),

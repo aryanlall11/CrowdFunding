@@ -1,2 +1,6 @@
-# Ethereum CrowdFunding
- Flutter + Blockchain CrowdFunding application
+# Ethereum Crowdfunding WebApp - Art Buster
+ 
+ **Solidity Code --> contract/crowd.sol**
+ 
+ 
+ 

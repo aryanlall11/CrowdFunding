@@ -15,6 +15,13 @@ class SideMenu extends StatelessWidget {
           DrawerHeader(
               child: Image.asset("assets/images/logo2.png"),
               padding: EdgeInsets.fromLTRB(16.0, 20.0, 16.0, 20.0)),
+
+          // Center(
+          //   child: Text(
+          //     "Art Buster",
+          //     style: Theme.of(context).textTheme.headline5,
+          //   ),
+          // ),
           DrawerListTile(
             title: "Dashboard",
             svgSrc: "assets/icons/menu_dashbord.svg",

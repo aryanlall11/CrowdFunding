@@ -122,7 +122,10 @@ class _LoginState extends State<Login> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text("Team"),
+                    Text(
+                      "Team",
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
                     Divider(
                       color: Colors.grey,
                     ),

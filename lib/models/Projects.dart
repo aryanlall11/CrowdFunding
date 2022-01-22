@@ -191,7 +191,17 @@ class _Project_TileState extends State<Project_Tile> {
                           widget.address,
                           widget.creator);
                     },
-                    icon: Icon(Icons.monetization_on_outlined),
+                    // icon: Icon(Icons.check),
+                    icon: (widget.live || isRefund)
+                        ? (isRefund
+                            ? Icon(Icons.arrow_back)
+                            : (widget.isAdmin
+                                ? Icon(Icons.check)
+                                : Icon(Icons.attach_money)))
+                        : (createReq
+                            ? Icon(Icons.playlist_add)
+                            : Icon(Icons.unfold_more)),
+
                     label: Text((widget.live || isRefund)
                         ? (isRefund
                             ? "Get Refund"

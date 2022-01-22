@@ -118,7 +118,7 @@ class _RecentFilesState extends State<RecentFiles> {
                                         Container(
                                           width: size.width * 0.15,
                                           child: Text(
-                                            "Goal Amount (Eth)",
+                                            "Goal Amount (ETH)",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .subtitle2,
@@ -165,7 +165,7 @@ class _RecentFilesState extends State<RecentFiles> {
                             child: Padding(
                               padding: EdgeInsets.only(top: size.height * 0.08),
                               child: Text(
-                                "Nothing to show :(",
+                                "Nothing to show 😟",
                                 style: Theme.of(context).textTheme.subtitle1,
                               ),
                             ),
